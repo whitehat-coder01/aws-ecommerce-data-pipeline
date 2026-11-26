@@ -62,12 +62,19 @@ The pipeline follows an event-driven architecture.
 <img width="1848" height="1792" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/7241b098-ee2e-436d-a311-575995bcff71" />
 
 Python + Boto3: Generates and publishes synthetic order events.
+
 Kinesis: Ingests streaming order data.
+
 Lambda: Decodes, validates, and processes incoming events.
+
 DynamoDB: Tracks order processing status and supports idempotency.
+
 S3: Stores valid processed orders and quarantined invalid orders.
+
 Athena: Runs SQL analytics on processed data.
+
 SQS: Receives failure destination metadata.
+
 CloudWatch + SNS: Monitor pipeline health and send alerts.
 
 ### Supporting AWS Services
