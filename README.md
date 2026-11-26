@@ -318,7 +318,7 @@ aws-ecommerce-data-pipeline/
 ### 1. Clone the Repository
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/whitehat-coder01/aws-ecommerce-data-pipeline
 cd aws-ecommerce-data-pipeline
 ```
 
