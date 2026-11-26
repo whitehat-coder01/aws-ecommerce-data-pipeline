@@ -59,35 +59,16 @@ Core pipeline implementation and automated tests completed.
 The pipeline follows an event-driven architecture.
 
 ### Architecture Diagram
+<img width="1848" height="1792" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/7241b098-ee2e-436d-a311-575995bcff71" />
 
-```text
-              Python Producer
-                    |
-                    v
-          Amazon Kinesis Data Streams
-                    |
-                    v
-               AWS Lambda
-                    |
-          +---------+---------+
-          |                   |
-          v                   v
-    Data Validation      DynamoDB Ledger
-          |
-     +----+----+
-     |         |
-   Valid     Invalid
-     |         |
-     v         v
-  Amazon S3  Amazon S3
-  Clean Data Quarantine
-     |
-     v
-  Amazon Athena
-     |
-     v
-  SQL Analytics
-```
+Python + Boto3: Generates and publishes synthetic order events.
+Kinesis: Ingests streaming order data.
+Lambda: Decodes, validates, and processes incoming events.
+DynamoDB: Tracks order processing status and supports idempotency.
+S3: Stores valid processed orders and quarantined invalid orders.
+Athena: Runs SQL analytics on processed data.
+SQS: Receives failure destination metadata.
+CloudWatch + SNS: Monitor pipeline health and send alerts.
 
 ### Supporting AWS Services
 
@@ -240,6 +221,21 @@ FROM ecommerce_analytics.orders_clean
 GROUP BY status
 ORDER BY total_orders DESC;
 ```
+### 6. Daily revenue
+
+``` sql
+SELECT
+    CAST(
+        from_iso8601_timestamp(event_timestamp)
+        AS DATE
+    ) AS order_date,
+    COUNT(*) AS total_orders,
+    SUM(total_amount) AS daily_revenue
+FROM ecommerce_analytics.orders_clean
+GROUP BY 1
+ORDER BY 1;
+```
+
 
 ## Data Quality and Reliability
 
