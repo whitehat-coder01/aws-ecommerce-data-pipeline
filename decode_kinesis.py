@@ -1,0 +1,8 @@
+import base64
+
+encoded_data = "eyJvcmRlcl9pZCI6ICJPUkQyMDAxIiwgImN1c3RvbWVyX2lkIjogIkNVU1QxMDEiLCAicHJvZHVjdF9pZCI6ICJQUk9ENTAxIiwgInF1YW50aXR5IjogMiwgInByaWNlIjogMTUwMCwgInRvdGFsX2Ftb3VudCI6IDMwMDAsICJvcmRlcl9zdGF0dXMiOiAiUExBQ0VEIiwgImV2ZW50X3R5cGUiOiAiT1JERVJfQ1JFQVRFRCIsICJldmVudF90aW1lc3RhbXAiOiAiMjAyNi0xMS0yNFQxNjozNTo1OC4wNDE0MDIrMDA6MDAifQ=="
+
+decoded_data = base64.b64decode(encoded_data).decode("utf-8")
+
+print("Decoded Kinesis Event:")
+print(decoded_data)
