@@ -356,7 +356,7 @@ python -m pytest tests/ -v
 ### 6. Run the Data Producer
 
 ```powershell
-python producer/producer.py
+python producer/kinesis_producer.py
 ```
 
 The producer requires a configured Kinesis stream and appropriate AWS permissions.
